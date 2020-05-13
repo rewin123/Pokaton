@@ -19,8 +19,16 @@ include_directories(glm)
 
 set(LIBS glfw freetype glm ${GLFW_LIBRARIES} ${OPENGL_LIBRARY})
 
-add_executable(settle_test tests/settle_test.cpp src/glad.c)
-target_link_libraries(settle_test ${LIBS})
+file(GLOB SRC "src/*.cpp" "src/*.c")
+file(GLOB SOIL_SRC "src/SOIL/*.c")
+set(SRC ${SRC} ${SOIL_SRC})
+
+add_executable(hello_world tests/hello_world.cpp ${SRC})
+target_link_libraries(hello_world ${LIBS})
+
+add_executable(tilemap_test tests/tilemap_test.cpp ${SRC})
+target_link_libraries(tilemap_test ${LIBS})
+
 
 file(REMOVE_RECURSE ${CMAKE_BINARY_DIR}/res/ )
 file(COPY res DESTINATION ${CMAKE_BINARY_DIR})
